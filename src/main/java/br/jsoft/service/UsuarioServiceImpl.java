@@ -1,6 +1,5 @@
 package br.jsoft.service;
 
-
 import br.jsoft.model.Usuario;
 import br.jsoft.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario create(Usuario newUsuario) {
-        return null;
+
+        return usuarioRepository.save(newUsuario);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void deleteById(Long id) {
-
+        usuarioRepository.deleteById(id);
     }
 }
