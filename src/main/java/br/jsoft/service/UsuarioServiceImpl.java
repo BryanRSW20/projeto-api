@@ -33,7 +33,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario update(Usuario updatedUsuario, Long id) {
-        return null;
+        Optional <Usuario> u = usuarioRepository.findById(id);
+        if (u.isEmpty()){
+            return null;
+        }
+
+        u.get().setNome(updatedUsuario.getNome());
+        u.get().setUsername(updatedUsuario.getUsername());
+        u.get().setSenha(updatedUsuario.getSenha());
+        return usuarioRepository.save(u.get());
     }
 
     @Override
