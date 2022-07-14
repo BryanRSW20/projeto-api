@@ -3,11 +3,15 @@ package br.jsoft.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.List;
 
 @Entity(name = "projeto")
+@Table(name = "projeto")
 public class Projeto {
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    public Projeto(){}
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,30 +25,10 @@ public class Projeto {
     private String descricao;
 
     @Column(name = "data_inicio")
-    private Date dataInicio;
+    private String dataInicio;
 
     @Column(name = "data_final")
-    private Date dataFinal;
-
-    public List<Usuario> getUsuarios() {
-        return usuarios;
-    }
-
-    public void setUsuarios(List<Usuario> usuarios) {
-        this.usuarios = usuarios;
-    }
-
-    @OneToMany
-    @JoinTable(
-            name = "projeto_usuario",
-            joinColumns = @JoinColumn(name = "projeto_id",
-            referencedColumnName = "id"
-    ),
-            inverseJoinColumns = @JoinColumn(name = "usuario_id",
-            referencedColumnName = "id")
-    )
-
-    private List <Usuario> usuarios;
+    private String dataFinal;
 
     private double orcamento;
 
@@ -72,19 +56,19 @@ public class Projeto {
         this.descricao = descricao;
     }
 
-    public Date getDataInicio() {
+    public String getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(String dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFinal() {
+    public String getDataFinal() {
         return dataFinal;
     }
 
-    public void setDataFinal(Date dataFinal) {
+    public void setDataFinal(String dataFinal) {
         this.dataFinal = dataFinal;
     }
 
@@ -108,3 +92,4 @@ public class Projeto {
                 '}';
     }
 }
+

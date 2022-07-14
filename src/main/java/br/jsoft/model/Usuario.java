@@ -1,16 +1,16 @@
 package br.jsoft.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "usuario")
 public class Usuario {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
     private Long id;
 
     @Size(max = 100)
@@ -55,6 +55,21 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Projeto> projeto;
+
+    public List<Projeto> getProjeto() {
+        return projeto;
+    }
+
+    public void setProjeto(List<Projeto> projeto) {
+        this.projeto = projeto;
+    }
+
+    public Usuario(){
+        projeto = new ArrayList<>();
     }
 
     @Override
