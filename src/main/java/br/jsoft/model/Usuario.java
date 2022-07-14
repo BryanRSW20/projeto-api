@@ -9,6 +9,13 @@ import java.util.List;
 @Entity(name = "usuario")
 public class Usuario {
 
+
+    @ManyToOne
+    @JoinColumn(name = "projeto_id")
+    private Projeto projeto;
+
+    public Usuario(){}
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id")
     private Long id;
@@ -57,19 +64,12 @@ public class Usuario {
         this.senha = senha;
     }
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Projeto> projeto;
-
-    public List<Projeto> getProjeto() {
+    public Projeto getProjeto() {
         return projeto;
     }
 
-    public void setProjeto(List<Projeto> projeto) {
+    public void setProjeto(Projeto projeto) {
         this.projeto = projeto;
-    }
-
-    public Usuario(){
-        projeto = new ArrayList<>();
     }
 
     @Override
@@ -79,6 +79,9 @@ public class Usuario {
                 ", nome='" + nome + '\'' +
                 ", username='" + username + '\'' +
                 ", senha='" + senha + '\'' +
+                ", projeto=" +projeto.getNome() +
+                projeto.getDescricao() + projeto.getDataInicio() +
+                projeto.getDataFinal() + projeto.getOrcamento() +
                 '}';
     }
 }

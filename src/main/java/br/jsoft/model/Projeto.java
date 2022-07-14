@@ -3,17 +3,17 @@ package br.jsoft.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "projeto")
 @Table(name = "projeto")
 public class Projeto {
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-    public Projeto(){}
+    @OneToMany(mappedBy = "projeto")
+    private List<Usuario> usuarios;
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "projeto_id")
     private Long id;
 
     @Size(max = 40)
@@ -78,6 +78,18 @@ public class Projeto {
 
     public void setOrcamento(double orcamento) {
         this.orcamento = orcamento;
+    }
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuario(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
+
+    public Projeto(){
+        usuarios = new ArrayList<>();
     }
 
     @Override
